@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { IAnswer } from '../types.ts';
 import { QuizCard } from './QuizCard.tsx';
 import { questionsSelector } from '../slices/questionsSlice.ts';
-import { answersSelector, addAnswer } from '../slices/answersSlice.ts';
+import { addAnswer } from '../slices/answersSlice.ts';
 import { useAppSelector, useAppDispatch } from '../hooks.ts';
 import { ModeProps } from '../types.ts';
 
@@ -11,7 +11,6 @@ export const Quiz: React.FC<ModeProps> = ({ setMode }) => {
 
   const dispatch = useAppDispatch();
   const quizData = useAppSelector(questionsSelector);
-  // const answerData = useAppSelector(answersSelector);
 
   const nextQuestion = (result: IAnswer) => {
     dispatch(addAnswer(result));
