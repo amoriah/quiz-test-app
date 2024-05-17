@@ -1,4 +1,4 @@
-import React, { useState, memo } from 'react';
+import React, { useState } from 'react';
 import {
   Grid,
   FormControl,
@@ -12,22 +12,23 @@ import {
   Container,
   Paper,
 } from '@mui/material';
-import { IAnswer, IQuestion } from '../types/types';
+import { IAnswer, IQuestion } from '../types';
 interface QuestionProps {
   len: number;
   count: number;
   question: IQuestion;
+  options: string[];
   onNext: (result: IAnswer) => void;
 }
 
-export const Question: React.FC<QuestionProps> = ({
+export const QuizCard: React.FC<QuestionProps> = ({
   len,
   count,
   question,
+  options,
   onNext,
 }) => {
   const [answers, setAnswers] = useState<string[]>([]);
-  const [isAnswer, setIsAnswer] = useState(false);
 
   const answerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const answer = event.target.value;
@@ -40,17 +41,19 @@ export const Question: React.FC<QuestionProps> = ({
     } else {
       setAnswers([answer]);
     }
-    setIsAnswer(true);
   };
 
   const handleNext = () => {
-    const answerData: IAnswer = {
-      questionNumber: count,
-      question,
-      answer: answers,
-      isRight: question.correct_answer === answers[0],
-    };
-    onNext(answerData);
+    if (answers.length) {
+      const answerData: IAnswer = {
+        questionNumber: count,
+        question,
+        answer: answers,
+        isRight: question.correct_answer === answers[0],
+      };
+      setAnswers([]);
+      onNext(answerData);
+    }
   };
 
   return (
@@ -69,10 +72,10 @@ export const Question: React.FC<QuestionProps> = ({
         >
           <Grid item display="flex" flexDirection="column" alignItems="center">
             <Typography variant="h5" gutterBottom>
-              Вопрос {count} из {len}
+              Question {count} from {len}
             </Typography>
             <Typography variant="body1" gutterBottom>
-              Сложность: {question.difficulty}
+              Difficulty: {question.difficulty}
             </Typography>
           </Grid>
 
@@ -86,34 +89,30 @@ export const Question: React.FC<QuestionProps> = ({
             <FormControl component="fieldset">
               {question.multiple ? (
                 <FormGroup>
-                  {[question.correct_answer, ...question.incorrect_answers].map(
-                    (answer) => (
-                      <FormControlLabel
-                        key={answer}
-                        control={
-                          <Checkbox
-                            checked={answers.includes(answer)}
-                            onChange={answerChange}
-                            value={answer}
-                          />
-                        }
-                        label={answer}
-                      />
-                    )
-                  )}
+                  {options.map((answer) => (
+                    <FormControlLabel
+                      key={answer}
+                      control={
+                        <Checkbox
+                          checked={answers.includes(answer)}
+                          onChange={answerChange}
+                          value={answer}
+                        />
+                      }
+                      label={answer}
+                    />
+                  ))}
                 </FormGroup>
               ) : (
                 <RadioGroup value={answers[0] || null} onChange={answerChange}>
-                  {[question.correct_answer, ...question.incorrect_answers].map(
-                    (answer) => (
-                      <FormControlLabel
-                        key={answer}
-                        value={answer}
-                        control={<Radio />}
-                        label={answer}
-                      />
-                    )
-                  )}
+                  {options.map((answer) => (
+                    <FormControlLabel
+                      key={answer}
+                      value={answer}
+                      control={<Radio />}
+                      label={answer}
+                    />
+                  ))}
                 </RadioGroup>
               )}
             </FormControl>
@@ -123,9 +122,9 @@ export const Question: React.FC<QuestionProps> = ({
               variant="contained"
               color="primary"
               onClick={handleNext}
-              disabled={!isAnswer}
+              disabled={!answers.length}
             >
-              Следующий вопрос
+              Next
             </Button>
           </Grid>
         </Grid>

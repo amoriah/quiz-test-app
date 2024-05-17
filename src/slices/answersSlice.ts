@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { AnswerState } from '../types/types.js';
+import { AnswerState } from '../types.js';
+import type { RootState } from '../store.ts';
 
 export const initialState: AnswerState = {
   answers: [],
@@ -12,11 +13,14 @@ export const answersSlice = createSlice({
     addAnswer: (state, { payload }) => {
       state.answers = [...state.answers, payload];
     },
+    cleanAnswers: (state) => {
+      state.answers = []
+    }
   },
 });
 
-export const { addAnswer } = answersSlice.actions;
+export const { addAnswer, cleanAnswers } = answersSlice.actions;
 
-export const answersSelector = (state: AnswerState) => state.answers;
+export const answersSelector = (state: RootState) => state.answers;
 
 export default answersSlice.reducer;

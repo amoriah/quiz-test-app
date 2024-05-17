@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { QuestionState } from '../types/types.ts';
+import { QuestionState } from '../types.ts';
+import type { RootState } from '../store.ts';
 import axios from 'axios';
 
 export const initialState: QuestionState = {
@@ -12,7 +13,14 @@ export const initialState: QuestionState = {
 export const questionsSlice = createSlice({
   name: 'questions',
   initialState,
-  reducers: {},
+  reducers: {
+    cleanQuestions: (state) => {
+      state.questions = [];
+      state.loading = false;
+      state.hasErrors = false;
+      state.status = 'idle';
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getQuestions.pending, (state) => {
@@ -33,16 +41,20 @@ export const questionsSlice = createSlice({
   },
 });
 
-export const questionsSelector = (state: QuestionState) => state.questions;
+export const { cleanQuestions } = questionsSlice.actions;
+
+export const questionsSelector = (state: RootState) => state.questions;
 
 export default questionsSlice.reducer;
 
 export const getQuestions = createAsyncThunk(
   'questions/getQuestions',
-  async (questionCount: string) => {
+  async () => {
     try {
       const response = await axios.get(
-        `https://opentdb.com/api.php?amount=${questionCount}&token=f98a00ed7c815294a7dac16d95594d38091e4d77068e7ceb8176287ce53a3fa2`
+        // `https://opentdb.com/api.php?amount=${questionCount}`
+        `https://opentdb.com/api.php?amount=15`
+        // `https://opentdb.com/api.php?amount=${questionCount}&token=f98a00ed7c815294a7dac16d95594d38091e4d77068e7ceb8176287ce53a3fa2`
       );
       return response.data.results;
     } catch (error) {

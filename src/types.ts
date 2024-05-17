@@ -1,3 +1,9 @@
+export type ModeType = 'start' | 'process' | 'finish';
+
+export interface ModeProps {
+  setMode: (mode: ModeType) => void;
+}
+
 export interface IQuestion {
   category: string;
   correct_answer: string;
