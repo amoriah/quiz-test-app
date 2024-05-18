@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">76.47% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>6/15</span>
+                <span class='fraction'>13/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>1/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">35.71% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/14</span>
+                <span class='fraction'>12/16</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -93,25 +93,31 @@
 <a name='L28'></a><a href='#L28'>28</a>
 <a name='L29'></a><a href='#L29'>29</a>
 <a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -128,29 +134,32 @@ import { Start } from './components/Start';
 import { Quiz } from './components/Quiz';
 import { FinishTable } from './components/FinishTable';
 import { ModeType } from './types';
+import { Provider } from 'react-redux';
+import { store } from './store';
 &nbsp;
-export const App = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
-  const [mode, setMode] = <span class="cstat-no" title="statement not covered" >useState&lt;ModeType&gt;('start');</span>
+export const App = () =&gt; {
+  const [mode, setMode] = useState&lt;ModeType&gt;('start');
 &nbsp;
-  const changeMode = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(c</span>urrentMode: ModeType) =&gt; {</span>
+  const changeMode = <span class="fstat-no" title="function not covered" >(c</span>urrentMode: ModeType) =&gt; {
 <span class="cstat-no" title="statement not covered" >    setMode(currentMode);</span>
   };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;&gt;
-      {(<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >        switch (mode) {</span>
+  return (
+    &lt;Provider store={store}&gt;
+      {/* &lt;&gt;&lt;p&gt;Learn react&lt;/p&gt;&lt;/&gt; */}
+      {(() =&gt; {
+        switch (mode) {
           case 'start':
-<span class="cstat-no" title="statement not covered" >            return &lt;Start setMode={changeMode} /&gt;;</span>
-          case 'process':
+            return &lt;Start setMode={changeMode} /&gt;;
+<span class="branch-1 cbranch-no" title="branch not covered" >          case 'process':</span>
 <span class="cstat-no" title="statement not covered" >            return &lt;Quiz setMode={changeMode} /&gt;;</span>
-          case 'finish':
+<span class="branch-2 cbranch-no" title="branch not covered" >          case 'finish':</span>
 <span class="cstat-no" title="statement not covered" >            return &lt;FinishTable setMode={changeMode} /&gt;;</span>
-          default:
+<span class="branch-3 cbranch-no" title="branch not covered" >          default:</span>
 <span class="cstat-no" title="statement not covered" >            return null;</span>
         }
       })()}
-    &lt;/&gt;
+    &lt;/Provider&gt;
   );
 };
 &nbsp;</pre></td></tr></table></pre>
@@ -160,7 +169,7 @@ export const App = <span class="fstat-no" title="function not covered" >() =</sp
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-18T12:41:50.248Z
+                at 2024-05-18T16:16:22.808Z
             </div>
         <script src="../prettify.js"></script>
         <script>

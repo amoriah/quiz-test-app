@@ -51,11 +51,7 @@ export const getQuestions = createAsyncThunk(
   'questions/getQuestions',
   async () => {
     try {
-      const response = await axios.get(
-        // `https://opentdb.com/api.php?amount=${questionCount}`
-        `https://opentdb.com/api.php?amount=15`
-        // `https://opentdb.com/api.php?amount=${questionCount}&token=f98a00ed7c815294a7dac16d95594d38091e4d77068e7ceb8176287ce53a3fa2`
-      );
+      const response = await axios.get(`https://opentdb.com/api.php?amount=15`);
       return response.data.results;
     } catch (error) {
       console.error('Ошибка при запросе к API:', error);

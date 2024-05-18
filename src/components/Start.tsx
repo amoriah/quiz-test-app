@@ -12,7 +12,7 @@ export const Start: React.FC<ModeProps> = ({ setMode }) => {
   const submit = async () => {
     dispatch(getQuestions()).then(() => {
       if (quizData.hasErrors || !quizData.questions) {
-        alert('ошибка пробовать снова');
+        alert('API Error');
       } else {
         setMode('process');
       }

@@ -1,25 +1,35 @@
 import '@testing-library/jest-dom';
+import { render } from '@testing-library/react';
 import { App } from '../App';
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
-import { store } from '../store';
 
 test('demo', () => {
   expect(true).toBe(true);
 });
 
-test('Renders the App', () => {
-  const root = document.createElement('div');
-  const rootElement = ReactDOM.createRoot(root);
-
-  rootElement.render(
-    <React.StrictMode>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </React.StrictMode>
-  );
-
+test('App component', () => {
+  render(<App />);
   expect(true).toBeTruthy();
 });
+
+/*
+Тесты для компонента старта (Start Component):
+    Проверка, что компонент рендерится без ошибок
+    Проверка, что кнопка "Start" отображается
+    Проверка, что при клике на кнопку "Start" вызывается функция changeMode с правильным аргументом
+Тесты для компонента вопросов (Quiz Component):
+    Проверка, что компонент рендерится без ошибок
+    Проверка, что отображается правильный вопрос и варианты ответов
+    Проверка, что при клике на вариант ответа вызывается функция changeMode с правильным аргументом
+    Проверка, что при клике на кнопку "Next" вызывается функция changeMode с правильным аргументом
+Тесты для компонента таблицы результатов (FinishTable Component):
+    Проверка, что компонент рендерится без ошибок
+    Проверка, что отображаются правильные результаты квиза
+    Проверка, что при клике на кнопку "Restart" вызывается функция changeMode с правильным аргументом
+Тесты для Redux Store:
+    Проверка, что список вопросов сохраняется в Redux Store после получения данных с API
+    Проверка, что при нажатии на кнопку "Restart" состояние Redux Store сбрасывается
+Тесты для API запросов:
+    Проверка, что при нажатии на кнопку "Start" выполняется правильный GET запрос на API
+    Проверка, что при ошибке API запроса отображается соответствующее сообщение об ошибке
+
+  */

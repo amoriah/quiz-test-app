@@ -3,6 +3,8 @@ import { Start } from './components/Start';
 import { Quiz } from './components/Quiz';
 import { FinishTable } from './components/FinishTable';
 import { ModeType } from './types';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 export const App = () => {
   const [mode, setMode] = useState<ModeType>('start');
@@ -12,7 +14,8 @@ export const App = () => {
   };
 
   return (
-    <>
+    <Provider store={store}>
+      {/* <><p>Learn react</p></> */}
       {(() => {
         switch (mode) {
           case 'start':
@@ -25,6 +28,6 @@ export const App = () => {
             return null;
         }
       })()}
-    </>
+    </Provider>
   );
 };
