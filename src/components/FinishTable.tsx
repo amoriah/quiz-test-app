@@ -39,7 +39,6 @@ export const FinishTable: React.FC<ModeProps> = ({ setMode }) => {
   });
 
   const correctAnswers = answers.filter((result) => result.isRight).length;
-//добавить иконки в таблицу
   return (
     <Container maxWidth="md">
       <Paper>
